@@ -90,7 +90,7 @@ public class ChessMatch {
             if ((movedPiece.getColor() == Color.WHITE && target.getRow() == 0) ||
                     (movedPiece.getColor() == Color.BLACK && target.getRow() == 7)) {
                 promoted = (ChessPiece)board.piece(target);
-                promoted = replacePromotedPiece("Q");
+                promoted = replacePromotedPiece("P");
             }
         }
 
@@ -153,6 +153,12 @@ public class ChessMatch {
         ChessPiece newPiece = newPiece(type, promoted.getColor());
         board.placePiece(newPiece, pos);
         piecesOnTheBoard.add(newPiece);
+
+        // Checkmate After Promoted
+        if (testCheckMate(currentPlayer)) {
+            checkMate = true;
+            currentPlayer = opponent(currentPlayer);
+        }
 
         return newPiece;
     }
@@ -378,6 +384,21 @@ public class ChessMatch {
         placeNewPiece('c', 2, new Pawn(board, Color.BLACK, this));
     }
 
+    //Teste Castling
+    private void initialSetup() {
+        placeNewPiece('a', 1, new Rook(board, Color.WHITE));
+        placeNewPiece('e', 1, new King(board, Color.WHITE, this));
+        placeNewPiece('h', 4, new Bishop(board, Color.WHITE));
+        placeNewPiece('h', 1, new Rook(board, Color.WHITE));
+
+
+        placeNewPiece('a', 8, new Rook(board, Color.BLACK));
+        placeNewPiece('e', 8, new King(board, Color.BLACK, this));
+        placeNewPiece('h', 5, new Bishop(board, Color.BLACK));
+        placeNewPiece('h', 8, new Rook(board, Color.BLACK));
+    }
+    */
+
     private void initialSetup() {
         placeNewPiece('a', 1, new Rook(board, Color.WHITE));
         placeNewPiece('b', 1, new Knight(board, Color.WHITE));
@@ -394,16 +415,16 @@ public class ChessMatch {
         placeNewPiece('e', 2, new Pawn(board, Color.WHITE, this));
         placeNewPiece('f', 2, new Pawn(board, Color.WHITE, this));
         placeNewPiece('g', 2, new Pawn(board, Color.WHITE, this));
-        placeNewPiece('h', 2, new Pawn(board, Color.WHITE, this));
+        placeNewPiece('h', 7, new Pawn(board, Color.WHITE, this));
 
         placeNewPiece('a', 8, new Rook(board, Color.BLACK));
         placeNewPiece('b', 8, new Knight(board, Color.BLACK));
         placeNewPiece('c', 8, new Bishop(board, Color.BLACK));
         placeNewPiece('d', 8, new Queen(board, Color.BLACK));
         placeNewPiece('e', 8, new King(board, Color.BLACK, this));
-        placeNewPiece('f', 8, new Bishop(board, Color.BLACK));
-        placeNewPiece('g', 8, new Knight(board, Color.BLACK));
-        placeNewPiece('h', 8, new Rook(board, Color.BLACK));
+//        placeNewPiece('f', 8, new Bishop(board, Color.BLACK));
+//        placeNewPiece('g', 8, new Knight(board, Color.BLACK));
+//        placeNewPiece('h', 8, new Rook(board, Color.BLACK));
         placeNewPiece('a', 7, new Pawn(board, Color.BLACK, this));
         placeNewPiece('b', 7, new Pawn(board, Color.BLACK, this));
         placeNewPiece('c', 7, new Pawn(board, Color.BLACK, this));
@@ -411,23 +432,7 @@ public class ChessMatch {
         placeNewPiece('e', 7, new Pawn(board, Color.BLACK, this));
         placeNewPiece('f', 7, new Pawn(board, Color.BLACK, this));
         placeNewPiece('g', 7, new Pawn(board, Color.BLACK, this));
-        placeNewPiece('h', 7, new Pawn(board, Color.BLACK, this));
-    }
-     */
-
-    //Teste Castling
-    private void initialSetup() {
-        placeNewPiece('a', 1, new Rook(board, Color.WHITE));
-        placeNewPiece('e', 1, new King(board, Color.WHITE, this));
-        placeNewPiece('h', 4, new Bishop(board, Color.WHITE));
-        placeNewPiece('h', 1, new Rook(board, Color.WHITE));
-
-
-        placeNewPiece('a', 8, new Rook(board, Color.BLACK));
-        placeNewPiece('e', 8, new King(board, Color.BLACK, this));
-        placeNewPiece('h', 5, new Bishop(board, Color.BLACK));
-        placeNewPiece('h', 8, new Rook(board, Color.BLACK));
-
+//        placeNewPiece('h', 7, new Pawn(board, Color.BLACK, this));
     }
 
 }
